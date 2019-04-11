@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板的基础语法</title>
+</head>
+<body>
+    <main></main>
+</body>
+
+
+
+
+<script src="template.js"></script>
+<script id="t1" type="text/html">
+<h4>{{title}}</h4>
+{{if content.length > 0}}
+    <ul>
+        {{each content as bo index}}
+        <li>
+            第{{index + 1}}本,原价:{{bo.price}}元,现价:{{bo.currentPrice}}元
+        </li>
+        {{/each}}
+    </ul>
+{{else}}
+<p>今天没有打折书籍</p>
+{{/if}} 
+</script>
+<script>
+    // var book = {
+    //     title:"打折书籍",
+    //     content:[
+    //         {name:'html入门',price:10,currentPrice:8.5},
+    //         {name:'jQuery入门',price:13,currentPrice:10.5},
+    //         {name:'node.js入门',price:15,currentPrice:11},
+    //         {name:'css入门',price:12,currentPrice:9.5}
+    //     ]
+    // }
+    // //使用模板
+    // //参数一:使用哪一个模板
+    // //参数二:模板的数据是什么
+    var htmlStr = template("t1",book);
+    document.body.innerHTML = htmlStr;
+
+
+    //创建元素对象
+    var h4 = document.createElement("h4");
+    h4.innerHTML = book.title;
+
+    var main = document.getElementsByTagName("main")[0];
+    main.appendChild(h4);
+
+    if(book.content.length > 0 ){
+        var ul = document.createElement("ul");
+        for(var i = 0;i<book.content.length;i++){
+            var li = document.createElement("li");
+            li.innerHTML = "第"+(i+1)+"本" + book.content[i].name +"原价"+book.content[i].price+"元"+"现价"+book.content[i].currentPrice+"元";
+            ul.appendChild("li");
+        }
+        main.appendChild(ul);
+    }else{
+        var p1 = document.createElement("p");
+        p1.innerHTML = "今天没有打折书籍";
+        main.appendChild(p1);
+    }
+
+
+
+</script>
+</html>
